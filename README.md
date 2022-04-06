@@ -1,6 +1,7 @@
 # FoodApp
 Simple Food App based on ReactJs with Responsive design using css only.
-#Technologies:
+
+# Technologies:
 useState.
 useEffect
 useContext
