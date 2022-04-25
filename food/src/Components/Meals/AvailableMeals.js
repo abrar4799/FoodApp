@@ -2,14 +2,18 @@ import { useEffect ,useState} from 'react';
 import Card from '../UI/Card';
 import classes from './AvailableMeals.module.css';
 import MealItem from './MealItems/MealItem';
+import LoadingIcons from 'react-loading-icons'
+
 
 
 
 const AvailableMeals = () => {
   const [meals , setMeals ] =useState([])
+  const [isLoading , setLoading] = useState(true)
 useEffect(() =>{
 
  const fetchMeals = async() =>{
+   
   const response = await  fetch('https://foodappbackend-60502-default-rtdb.firebaseio.com/meals.json') 
   const data = await response.json()
 
@@ -24,6 +28,7 @@ useEffect(() =>{
     })
   }
   setMeals(loadedMeals)
+  setLoading(false)
 
  }
  fetchMeals()
@@ -31,6 +36,14 @@ useEffect(() =>{
  
   
 } , [])
+  if(isLoading){
+    return(
+      <section style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '60vh'}}>
+    <LoadingIcons.Circles />
+      </section>
+    )
+  }
+
 
   const mealsList = meals.map((meal) =>
   <MealItem 
