@@ -10,11 +10,17 @@ import LoadingIcons from 'react-loading-icons'
 const AvailableMeals = () => {
   const [meals , setMeals ] =useState([])
   const [isLoading , setLoading] = useState(true)
-useEffect(() =>{
+  const [HttpError , setHtpError ] = useState()
 
+ useEffect(() =>{
  const fetchMeals = async() =>{
    
   const response = await  fetch('https://foodappbackend-60502-default-rtdb.firebaseio.com/meals.json') 
+
+  if(!response.ok){
+     throw new Error('Something Went Wrong!')
+  }
+
   const data = await response.json()
 
   const loadedMeals = []
@@ -31,11 +37,22 @@ useEffect(() =>{
   setLoading(false)
 
  }
- fetchMeals()
- 
+
+  fetchMeals().catch((error) =>{
+    setLoading(false)
+   setHtpError(error.message)
+  })
+ /* try{
+   fetchMeals()
+ }catch (error){
+   setLoading(false)
+   setHtpError(error.message)
+ }*/
  
   
 } , [])
+
+
   if(isLoading){
     return(
       <section style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '60vh'}}>
@@ -43,7 +60,13 @@ useEffect(() =>{
       </section>
     )
   }
-
+  if(HttpError){
+    return (
+      <section style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '60vh'}}>
+        <p>{HttpError}</p>
+      </section>
+    )
+  }
 
   const mealsList = meals.map((meal) =>
   <MealItem 
