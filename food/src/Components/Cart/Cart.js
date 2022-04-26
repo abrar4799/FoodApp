@@ -23,6 +23,17 @@ const Cart = (props) => {
   const orderHandler = () =>{
      setIsCheckOut(true)
   }
+
+  const submitOrderHandler = (userData) => {
+    fetch('https://foodappbackend-60502-default-rtdb.firebaseio.com/orders.json' , {
+      method : 'POST' , 
+      body : JSON.stringify({
+        user : userData , 
+        orderedItems : cartCtx.items 
+      })
+    })
+
+  }
  
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
   console.log(cartCtx , 'cart context')
@@ -54,7 +65,7 @@ const Cart = (props) => {
         <span>Total Amout</span>
         <span>{totalAmount}</span>
       </div>
-   {  isCheckOut &&    <Checkout  onCancel = {props.onClose}/>}
+   {  isCheckOut &&    <Checkout onConfirm={submitOrderHandler} onCancel = {props.onClose}/>}
    {!isCheckOut && modelActions}
      
     </Model>
