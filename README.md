@@ -5,9 +5,9 @@ Online Restaurant (Foody)
 Simple Online Restaurant that enables users to order food online
 
 # Tools
-ReactJs Library ( Hooks , ContextAPI , Fetch )
-CSS For Responsive
-Firebase (BackEnd As A Service)
+- ReactJs Library ( Hooks , ContextAPI , Fetch )
+- CSS For Responsive
+- Firebase (BackEnd As A Service)
 
 # Developer
 Abrar Abd El-Mohsen @abrar4799
